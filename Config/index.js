@@ -3,10 +3,10 @@ import {  createPool } from "mysql";
 import "dotenv/config"
 //config()
 let connection = createPool({
-    host: process.env.HOST,
-    database: process.env.Name,
-    user: process.env.UserName,
-    password: process.env.Userpassword,
+    host: process.env.DB_HOST,
+    database: process.env.DB_Name,
+    user: process.env.DB_UserName,
+    password: process.env.DB_UserPass,
     multipleStatements: true,
     
 })
