@@ -28,7 +28,7 @@ app.use(
   cookieParser(),
   cors()
 )
-app.get('^/$|/lifechoices', (req,res)=>{
+app.get('^/$|/backend_node', (req,res)=>{
     res.status(200).sendFile(path.join(__dirname, "./Static/index.html"))
 })
 app.use('/users', userRouter)
