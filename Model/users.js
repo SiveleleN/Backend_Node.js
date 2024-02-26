@@ -43,9 +43,10 @@ class Users{
             })
         })
     }
+
     async createUser(req, res) {
         let data = req.body
-        data.userPwd = await hash(data?.userPwd, 8)
+        data.userPwd = await hash(data ?.userPwd, 8)
         let user = {
             emailAdd: data.emailAdd,
             userPwd: data.userPwd
@@ -70,6 +71,7 @@ class Users{
             }
         })
     }
+
     async updateUser(req, res) {
         const data = req.body
         if(data?.userPwd){

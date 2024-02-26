@@ -16,7 +16,7 @@ function createToken(user){
 }
 function verifyToken(req, res, next) {
     
-    const token = req?.headers['Authorization']
+    const token = req.headers['Authorization']
     if(token) {
         if(verify(token, process.env.SECRET_KEY)){
             next()
@@ -27,7 +27,7 @@ function verifyToken(req, res, next) {
             })
         }
     }else {
-        res?.json({
+        res.json({
             status: res.statusCode,
             msg: "Please login."
         })
