@@ -1,33 +1,45 @@
 import {connection as db} from "../config/index.js"
 class Products{
     fetchProducts(req, res){
-        const qry = `SELECT id, product_name,
-        product_description, price
-        FROM products;`
+        const qry = `
+        SELECT prodID,
+        prodImage,
+        prodName,
+        prodQuantity,
+        prodAmount,
+        userID,
+        FROM Products
+        `;
         db.query(qry, (err, results)=>{
             if(err) throw err
             res.json({
                 status: res.statusCode,
-                results
+                results: results[0]
             })
         })
     }
-    fetchProducts(req,res){
+    fetchProduct(req, res){
         const qry = `
-        SELECT id, product_name, product_description,price
-        FROM products
-        WHERE id = ${req.params.id};`
-        db.query(qry,(err, result)=>{
+        SELECT prodID,
+        prodImage,
+        prodName,
+        prodQuantity,
+        prodAmount,
+        userID,
+        FROM Products
+        WHERE prodID = ${req.params.id};
+        `;
+        db.query(qry, [req.params.id], (err, result) =>{
             if(err) throw err
             res.json({
                 status: res.statusCode,
-                result
+                result: result[0]
             })
         })
     }
-    addProduct(req,res){
+    addProduct(req, res) {
         const qry = `
-        INSERT INTO products
+        INSERT INTO Products
         SET ?;
         `
         db.query(qry, [req.body], (err)=>{
@@ -38,7 +50,34 @@ class Products{
             })
         })
     }
+    updateProduct(req, res) {
+        const qry = `
+        UPDATE Products
+        SET ?
+        WHERE prodID = ${req.params.id};
+        `
+        db.query(qry, [req.body], (err)=>{
+            if(err) throw err
+            res.json({
+                status: res.statusCode,
+                msg: "The product information has been updated."
+            })
+        })
+    }
+    deleteProduct(req, res) {
+        const qry = `
+        DELETE FROM Products
+        WHERE prodID = ${req.params.id};
+        `
+        db.query(qry, (err)=>{
+            if(err) throw err
+            res.json({
+                status: res.statusCode,
+                msg: "The product information has been deleted."
+            })
+        })
+    }
 }
-export{
+export {
     Products
 }
