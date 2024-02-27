@@ -1,4 +1,4 @@
-import {connection as db} from "../config/index.js"
+import {connection as db} from "../Config/index.js"
 class Products{
     fetchProducts(req, res){
         const qry = `
@@ -7,7 +7,7 @@ class Products{
         prodName,
         prodQuantity,
         prodAmount,
-        userID,
+        userID
         FROM Products
         `;
         db.query(qry, (err, results)=>{
@@ -18,14 +18,14 @@ class Products{
             })
         })
     }
-    fetchProduct(req, res){
+    fetchProducts(req, res){
         const qry = `
         SELECT prodID,
         prodImage,
         prodName,
         prodQuantity,
         prodAmount,
-        userID,
+        userID
         FROM Products
         WHERE prodID = ${req.params.id};
         `;
@@ -33,7 +33,7 @@ class Products{
             if(err) throw err
             res.json({
                 status: res.statusCode,
-                result: result[0]
+                results: results
             })
         })
     }
