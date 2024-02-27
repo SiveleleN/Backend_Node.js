@@ -26,14 +26,13 @@ class Products{
         prodQuantity,
         prodAmount,
         userID
-        FROM Products
-        WHERE prodID = ${req.params.id};
+        FROM Products;
         `;
         db.query(qry, [req.params.id], (err, result) =>{
             if(err) throw err
             res.json({
                 status: res.statusCode,
-                results: results
+                result: result
             })
         })
     }
