@@ -28,6 +28,7 @@ app.use(
   cookieParser(),
   cors()
 )
+// Update
 app.get('^/$|/backend_node', (req,res)=>{
     res.status(200).sendFile(path.join(__dirname, "./static/index.html"))
 })
