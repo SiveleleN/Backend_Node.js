@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <h1>Express</h1>
+    <!-- <h1>Express</h1> -->
     <table>
         <caption>
             <h3>
@@ -20,8 +20,8 @@
             <th>Description</th>
         </tr>
         <tr>
-            <td>/</td>
-            <td>GET</td>
+            <td>/(HOME PAGE)</td>
+            <td>Get</td>
             <td>Render an index.html</td>
         </tr>
     </table>
@@ -39,7 +39,27 @@
         <tr>
             <td>/users</td>
             <td>GET</td>
-            <td>Retrieve a list of users</td>
+            <td>Retrieve all users</td>
+        </tr>
+        <tr>
+            <td>/users/:id</td>
+            <td>GET</td>
+            <td>Retrieve a specific user by ID</td>
+        </tr>
+        <tr>
+            <td>/users/register</td>
+            <td>Post</td>
+            <td>To add a specific user</td>
+        </tr>
+        <tr>
+            <td>/user/update/:id</td>
+            <td>Put/Patch</td>
+            <td>To update a specific user</td>
+        </tr>
+        <tr>
+            <td>/user/delete/:id</td>
+            <td>Delete</td>
+            <td>To delete a specific user</td>
         </tr>
     </table>
     <table>
@@ -56,9 +76,29 @@
             <th>Description</th>
         </tr>
         <tr>
-            <td>/product </td>
+            <td>/products </td>
+            <td>GET</td>
+            <td>Retrieve all products</td>
+        </tr>
+        <tr>
+            <td>/products/:id </td>
             <td>GET</td>
             <td>Retrieve a specific product by ID</td>
+        </tr>
+        <tr>
+            <td>/products/addProduct </td>
+            <td>Post</td>
+            <td>To add a specific product</td>
+        </tr>
+        <tr>
+            <td>/products/update/:id </td>
+            <td>Put/Patch</td>
+            <td>To update a specific product</td>
+        </tr>
+        <tr>
+            <td>/products/delete/:id </td>
+            <td>Delete</td>
+            <td>To delete a specific product</td>
         </tr>
     </table>
 </body>
