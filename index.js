@@ -29,7 +29,7 @@ app.use(
   cors()
 )
 // Update
-app.get('^/$|/backend_node', (req,res)=>{
+app.get('^/$|/BACKEND_NODE.JS', (req,res)=>{
     res.status(200).sendFile(path.join(__dirname, "./static/index.html"))
 })
 app.use('/users', userRouter)
