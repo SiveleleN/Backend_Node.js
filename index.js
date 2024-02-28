@@ -29,7 +29,7 @@ app.use(
   cors()
 )
 app.get('^/$|/backend_node', (req,res)=>{
-    res.status(200).sendFile(path.join(__dirname, "./Static/index.html"))
+    res.status(200).sendFile(path.join(__dirname, "./static/index.html"))
 })
 app.use('/users', userRouter)
 app.use('/products', productRouter)
