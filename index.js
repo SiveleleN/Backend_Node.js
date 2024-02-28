@@ -17,10 +17,10 @@ app.use((req, res, next)=>{
     res.header("Access-Control-Request-Methods","*");
     res.header("Access-Control-Allow-Headers","*");
     res.header("Access-Control-Expose-Headers","Authorization");
-next();
+next()
 })
 app.use(
-    express.static('static'),
+    express.static('./static'),
     express.json(),
     express.urlencoded({
         extended: true,
@@ -29,12 +29,12 @@ app.use(
   cors()
 )
 // Update
-app.get('^/$|/BACKEND_NODE.JS', (req,res)=>{
-    res.status(200).sendFile(path.join(__dirname, "./static/index.html"))
+app.get('^/$|/backend_node.js', (req,res)=>{
+    res.status(200).sendFile(path.join(__dirname, './static/index.html'))
 })
 app.use('/users', userRouter)
 app.use('/products', productRouter)
 app.use(errorHandling)
 app.listen(port, ()=>{
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on port ${port}`)
 })
