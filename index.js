@@ -20,7 +20,7 @@ app.use((req, res, next)=>{
 next();
 })
 app.use(
-    express.static('./static'),
+    express.static('static'),
     express.json(),
     express.urlencoded({
         extended: true,
@@ -36,5 +36,5 @@ app.use('/users', userRouter)
 app.use('/products', productRouter)
 app.use(errorHandling)
 app.listen(port, ()=>{
-    console.log(`Server is running on port:${port}`);
+    console.log(`Server is running on http://localhost:${port}`);
 })
