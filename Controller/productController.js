@@ -16,7 +16,7 @@ productRouter.get('/', (req, res)=>{
 
 productRouter.get('/:id', (req, res)=>{
     try{
-        products.fetchProduct(req, res)
+        products.fetchProducts(req, res)
     }catch(e) {
         res.json({
             status: res.statusCode,
