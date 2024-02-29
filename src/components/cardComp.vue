@@ -1,10 +1,10 @@
 <template>
   <div class="card">
-      <div class="card-header">
-          <slot name="cardHeader"></slot>
+      <div class="header">
+          <slot name="Header"></slot>
       </div>
-      <div class="card-body">
-          <slot name="cardBody"></slot>
+      <div class="body">
+          <slot name="Body"></slot>
       </div>
   </div>
 
@@ -24,15 +24,16 @@
     width: 100%;
     max-width:300px; 
     /* display: flex; */
+    margin-top: 4%;
   }
 
   .card:hover {
     box-shadow: 0 4px 8px rgba(226, 6, 6, 0.952);
   }
 
-  .card-header,
+  .header,
    
-  .card-body {
+  .body {
     padding: 1rem;
 
   }
