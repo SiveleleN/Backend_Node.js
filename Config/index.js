@@ -10,6 +10,7 @@ let connection = createPool({
     multipleStatements: true,
     
 })
+
 export{
     connection
 }
