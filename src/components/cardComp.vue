@@ -2,9 +2,11 @@
   <div class="card">
       <div class="header">
           <slot name="Header"></slot>
+          <!---This creates a section where you can put stuff named "Header".-->
       </div>
       <div class="body">
           <slot name="Body"></slot>
+          <!---This creates a section where you can put stuff named "Header".-->
       </div>
   </div>
 

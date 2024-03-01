@@ -5,7 +5,8 @@
                     <input type="text" placeholder="Search product by name" class="form-control">
                     <button class="button btn-primary">Search</button>
                 </div>
-                <div>
+                <div custom-btn>
+                    <input v-model="searchQuery" type="text" placeholder="Search product by name" class="form-control">
                       <button class="btn btn-success custom-btn" @click="Sorting">
                       Sorting by price
                      </button>
@@ -14,10 +15,12 @@
             </div>
             <div class="row" v-if="$store.state.Products ">
                 <Card v-for="product in $store.state.Products" :key="product.prodID">
+                    <!--Display a card for each product in the store.-->
                     <template #Header>
                         <img :src="product.prodImage" class="product-img-top" alt="">
                         <h4 class="card-title">{{ product.prodName }}</h4>
                     </template>
+                    <!-- /*Template for displaying product image and name. */ -->
                     <template #Body>
                         <p class="card-text text-dark bg-gradient bg-dark-subtle p-2">
                             Quantity: {{ product.prodQuantity }}
@@ -25,7 +28,10 @@
                         <p class="card-text text-dark bg-gradient bg-dark-subtle p-2">
                             Amount: R{{ product.prodAmount }}
                         </p>
-                        <router-link @click="fetchproduct(product.prodID)" :to="{name: 'singleProduct', params: {id: product.prodID}}">View More</router-link>
+                        <div class="view-more">
+                             <router-link :to="{name: 'singleProduct', params: {id: product.prodID}}">View More</router-link>
+                             <!--Link to view details of a single product.-->
+                        </div>
                     </template>
                 </Card>
             </div>
@@ -33,27 +39,39 @@
     </template>
     <script>
     import Card from '@/components/cardComp.vue';
+   //imports the card components
     export default {
         name: 'ProductView',
         components: {
             Card
         },
+        data() {
+            return {
+                searchQuery: '',
+                sortByPrice: false,
+        };
+        },
         methods:{
-        fetchproducts(){      
+        fetchproducts() {      
             this.$store.dispatch('fetchproducts')
         },
-        fetchproduct(prodID){
-            this.$store.dispatch('fetchproduct', prodID)
-        }
-
+        // fetchproduct(prodID){
+        //     this.$store.dispatch('fetchproduct', prodID)
+        // },
+        Sorting() {
+            this.sortByPrice = !this.sortByPrice;
+            this.$store.dispatch('fetchSortedProducts', this.sortByPrice);
         },
+        search() {
+            this.$store.dispatch('fetchSearchedProducts', this.searchQuery);
+        }
+       
+    },
         mounted() {
             this.fetchproducts()
        
-        },
-        
+        }
     }
-
     
     </script>
     <style scoped>
@@ -81,31 +99,48 @@
 }
 
 .button {
-            /* Button text color */
+        
             color: white;
-            /* Button background color */
+           
             background-color: #007bff;
-            /* Padding around the button text */
+         
             padding: 10px 20px;
-            /* Border radius for rounded corners */
+            
             border-radius: 5px;
-            /* Border around the button */
+       
             border: none;
-            /* Cursor style on hover */
+          
             cursor: pointer;
-            /* Font size */
+            
             font-size: 16px;
+/* 
+            text-align: right; */
         }
-        /* Hover effect */
+    
         .button:hover {
-            /* Darken the background color on hover */
+          
             background-color: #0056b3;
         }
-        /* Active effect */
+     
         .button:active {
-            /* Slightly darken the button when clicked */
+       
             background-color: #004d99;
         }
 
+        .view-more {
+  background-color: #c070a6;
+  color: #fff;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none; 
+  cursor: pointer;
+  display: inline-block; 
+  transition: background-color 0.3s; 
+}
+
+.view-more:hover {
+  background-color: #97ccdd;
+}
  
     </style>
