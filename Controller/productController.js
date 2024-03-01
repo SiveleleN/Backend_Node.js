@@ -15,7 +15,7 @@ productRouter.get('/', (req, res) => {
     }
 });
 
-// Corrected method name to fetchProductById
+
 productRouter.get('/:id', (req, res) => {
     try {
         products.fetchProductById(req, res);
