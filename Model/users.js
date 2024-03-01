@@ -103,96 +103,34 @@ class Users{
             })
         })
     }
-    login(req, res) {
-        const {emailAdd, userPwd} = req.body
+    async loginUser(req, res) {
+        const { emailAdd, userPwd } = req.body;
         const qry = `
-        SELECT userID,
-        firstName,
-        lastName,
-        userAge,
-        gender,
-        emailAdd,
-        userPwd,
-        userRole
-        FROM Users
-        WHERE emailAdd = '${emailAdd}';
-        `
-        db.query(qry, async(err, result)=>{
-            if(err) throw err
-            if(!result?.length){
-                res.json({
-                    status: res.statusCode,
-                    msg: "You provided a wrong email address."
-                })
-            }else {
-                const validPass = await compare(userPwd, result[0].userPwd)
-                if(validPass) {
-                    const token = createToken({
-                        emailAdd,
-                        userPwd
-                    })
-                    res.json({
-                        status: res.statusCode,
-                        msg: "You're logged in",
-                        token,
-                        result: result[0]
-                    })
-                }else {
-                    res.json({
-                        status: res.statusCode,
-                        msg: "Please provide the correct password."
-                    })
-                }
-            }
-        })
-    }
-}
+          SELECT * FROM
+           Users
+           WHERE emailAdd = ?;
+        `;
+        db.query(qry, [emailAdd], async (err, results) => {
+          if (err) throw err;
+          if (results.length === 0) {
+            return res.status(400).json({ msg: "Invalid credentials" });
+          }
+          console.log(err);
+          const user = results[0];
+          const match = await compare(userPwd, user.userPwd);
+          if (!match) {
+            return res.status(400).json({ msg: "Invalid credentials" });
+          }
+          const token = createToken({ emailAdd: user.emailAdd, userId: user.userId });
+          res.json({
+            status: res.statusCode,
+            token,
+            msg: "Login successful",
+          });
+        });
+      }
+      }
 export {
     Users
 }
 
-
-// import {connection as db} from "../config/index.js"
-// class Products{
-//     fetchProducts(req, res){
-//         const qry = `SELECT id, product_name,
-//         product_description, price
-//         FROM products;`
-//         db.query(qry, (err, results)=>{
-//             if(err) throw err
-//             res.json({
-//                 status: res.statusCode,
-//                 results
-//             })
-//         })
-//     }
-//     fetchProducts(req,res){
-//         const qry = `
-//         SELECT id, product_name, product_description,price
-//         FROM products
-//         WHERE id = ${req.params.id};`
-//         db.query(qry,(err, result)=>{
-//             if(err) throw err
-//             res.json({
-//                 status: res.statusCode,
-//                 result
-//             })
-//         })
-//     }
-//     addProduct(req,res){
-//         const qry = `
-//         INSERT INTO products
-//         SET ?;
-//         `
-//         db.query(qry, [req.body], (err)=>{
-//             if(err) throw err
-//             res.json({
-//                 status: res.statusCode,
-//                 msg: 'New product was added'
-//             })
-//         })
-//     }
-// }
-// export{
-//     Products
-// }
